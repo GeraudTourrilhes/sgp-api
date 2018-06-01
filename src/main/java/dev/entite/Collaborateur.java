@@ -1,8 +1,6 @@
 package dev.entite;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -10,28 +8,30 @@ import javax.persistence.ManyToOne;
 public class Collaborateur {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
 	private String matricule;
+	private String nom;
 	@ManyToOne
 	private Departement departement;
+	@ManyToOne
+	private Banque banque;
 
 	public Collaborateur() {
 		super();
 	}
 
-	public Collaborateur(String matricule, Departement departement) {
+	public Collaborateur(String matricule, Departement departement, Banque banque) {
 		super();
 		this.matricule = matricule;
 		this.departement = departement;
+		this.banque = banque;
 	}
 
-	public Integer getId() {
-		return id;
+	public String getNom() {
+		return nom;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 
 	public String getMatricule() {
@@ -48,6 +48,14 @@ public class Collaborateur {
 
 	public void setDepartement(Departement departement) {
 		this.departement = departement;
+	}
+
+	public Banque getBanque() {
+		return banque;
+	}
+
+	public void setBanque(Banque banque) {
+		this.banque = banque;
 	}
 
 }

@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import dev.entite.Banque;
 import dev.entite.Collaborateur;
 import dev.repository.CollaborateurRepository;
 import dev.repository.DepartementRepository;
@@ -40,15 +42,24 @@ public class CollaborateurController {
 		return this.collaborateurRepository.findByDepartementId(idDepartement);
 	}
 
-	@PutMapping
-	public Collaborateur modifierCollaborateursByMatricule(@PathVariable("matricule") String matricule) {
-
-		return this.collaborateurRepository.save(this.collaborateurRepository.findByMatricule(matricule));
+	@PutMapping("/{matricule}")
+	public void modifierCollaborateursByMatricule(@PathVariable("matricule") String matricule,
+			@RequestBody Collaborateur collaborateur) {
+		collaborateur.setMatricule(matricule);
+		this.collaborateurRepository.save(collaborateur);
 	}
-	/*
-	 *
-	 * GET /api/collaborateurs/[MATRICULE]/banque : récupère les coordonnées
-	 * bancaires d'un collaborateur (nom de la banque, iban et bic) PUT
-	 * /api/collaborateurs/[MATRICULE]/banque : mo
-	 */
+
+	@GetMapping("/{matricule}/banque")
+	public Banque listerBanqueCollaborateursByMatricule(@PathVariable("matricule") String matricule) {
+
+		return this.collaborateurRepository.findByMatricule(matricule).getBanque();
+	}
+
+	@PutMapping("/{matricule}/banque")
+	public void modifierBanqueCollaborateursByMatricule(@PathVariable("matricule") String matricule,
+			@RequestBody Banque banque) {
+		Collaborateur collaborateur = collaborateurRepository.findByMatricule(matricule);
+		collaborateur.setBanque(banque);
+		this.collaborateurRepository.save(collaborateur);
+	}
 }
