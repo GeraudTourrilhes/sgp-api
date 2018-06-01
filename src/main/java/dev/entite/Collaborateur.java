@@ -15,4 +15,39 @@ public class Collaborateur {
 	private String matricule;
 	@ManyToOne
 	private Departement departement;
+
+	public Collaborateur() {
+		super();
+	}
+
+	public Collaborateur(String matricule, Departement departement) {
+		super();
+		this.matricule = matricule;
+		this.departement = departement;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getMatricule() {
+		return matricule;
+	}
+
+	public void setMatricule(String matricule) {
+		this.matricule = matricule;
+	}
+
+	public Departement getDepartement() {
+		return departement;
+	}
+
+	public void setDepartement(Departement departement) {
+		this.departement = departement;
+	}
+
 }
