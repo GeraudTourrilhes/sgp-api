@@ -1,5 +1,6 @@
 package dev.entite;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -10,20 +11,23 @@ public class Collaborateur {
 	@Id
 	private String matricule;
 	private String nom;
+	private String prenom;
 	@ManyToOne
 	private Departement departement;
-	@ManyToOne
+	@Embedded
 	private Banque banque;
 
 	public Collaborateur() {
 		super();
 	}
 
-	public Collaborateur(String matricule, Departement departement, Banque banque) {
+	public Collaborateur(String matricule, String nom, String prenom, Departement departement, Banque banque) {
 		super();
 		this.matricule = matricule;
 		this.departement = departement;
 		this.banque = banque;
+		this.nom = nom;
+		this.prenom = prenom;
 	}
 
 	public String getNom() {
@@ -56,6 +60,14 @@ public class Collaborateur {
 
 	public void setBanque(Banque banque) {
 		this.banque = banque;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
 	}
 
 }
